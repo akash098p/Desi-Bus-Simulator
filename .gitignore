@@ -1,0 +1,40 @@
+# Node
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Backup
+*.bak
+*.backup
+
+# Caffeine / Motoko
+src/backend/system-idl/
+
+# Pruned/build images
+scripts/
+
+# System
+Thumbs.db
