@@ -1,0 +1,72 @@
+# Desi Bus Simulator - Requirements
+
+## Runtime Requirements
+
+- Node.js >= 16.0.0
+- pnpm >= 7.0.0 (package manager)
+- Modern web browser (Chrome, Edge, Firefox, Safari)
+
+## For Windows Quick Start
+
+- Windows 10/11
+- OR run `start-game.bat`
+
+## Development Requirements
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Node.js | >= 16.0.0 | JavaScript runtime |
+| pnpm | >= 7.0.0 | Package manager |
+| Vite | 5.x | Build tool / dev server |
+| TypeScript | 5.x | Type safety |
+| React | 19.x | UI framework |
+| React Three Fiber | 9.x | 3D rendering |
+| Three.js | 0.176 | 3D engine |
+| Zustand | 5.x | State management |
+| Tailwind CSS | 3.x | Styling |
+| Biome | 1.x | Linting/formatting |
+
+## For Internet Computer Deployment (Optional)
+
+- dfx (Dfinity SDK)
+- Motoko compiler (moc)
+- Motoko base library
+
+## Setup Commands
+
+```bash
+# Install all dependencies
+pnpm install
+
+# Navigate to frontend
+cd src/frontend
+pnpm install
+
+# Start development server
+npx vite --host
+```
+
+## Build Commands
+
+```bash
+# TypeScript type check
+pnpm typecheck
+
+# Production build
+pnpm build
+
+# Lint check
+pnpm check
+
+# Auto-fix linting
+pnpm fix
+```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `II_URL` | Internet Identity URL | `https://identity.internetcomputer.org/` |
+| `STORAGE_GATEWAY_URL` | Storage gateway for assets | `https://blob.caffeine.ai` |
+| `DFX_NETWORK` | DFX network mode | `local` during dev |
+| `CANISTER_*` | Canister environment vars | Set by dfx |
