@@ -1,0 +1,471 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/assets/fonts/Outfit[wght].woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/assets/fonts/Fraunces[opsz,SOFT,WONK,wght].woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Desi Bus Game - dark Indian night road palette */
+    --background: 0.12 0.02 250;
+    --foreground: 0.96 0.01 85;
+    --card: 0.16 0.02 250;
+    --card-foreground: 0.96 0.01 85;
+    --popover: 0.18 0.025 250;
+    --popover-foreground: 0.96 0.01 85;
+    --primary: 0.72 0.18 55;
+    --primary-foreground: 0.10 0.01 250;
+    --secondary: 0.22 0.03 250;
+    --secondary-foreground: 0.96 0.01 85;
+    --muted: 0.20 0.02 250;
+    --muted-foreground: 0.60 0.04 250;
+    --accent: 0.65 0.22 145;
+    --accent-foreground: 0.10 0.01 250;
+    --destructive: 0.60 0.22 25;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.28 0.03 250;
+    --input: 0.28 0.03 250;
+    --ring: 0.72 0.18 55;
+
+    --chart-1: 0.72 0.22 48;
+    --chart-2: 0.65 0.22 145;
+    --chart-3: 0.70 0.12 240;
+    --chart-4: 0.85 0.18 85;
+    --chart-5: 0.60 0.22 25;
+
+    --sidebar: 0.14 0.02 250;
+    --sidebar-foreground: 0.96 0.01 85;
+    --sidebar-primary: 0.72 0.18 55;
+    --sidebar-primary-foreground: 0.10 0.01 250;
+    --sidebar-accent: 0.22 0.03 250;
+    --sidebar-accent-foreground: 0.96 0.01 85;
+    --sidebar-border: 0.28 0.03 250;
+    --sidebar-ring: 0.72 0.18 55;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Game HUD styles */
+.hud-panel {
+  background: rgba(8, 8, 18, 0.85);
+  border: 1px solid rgba(255, 149, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+}
+
+.hud-value {
+  font-family: 'Outfit', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 149, 0, 0.4), 0 0 40px rgba(255, 149, 0, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(255, 149, 0, 0.8), 0 0 80px rgba(255, 149, 0, 0.4); }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(40px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  0% { transform: translateX(-40px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes flag-stripe {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.float-in {
+  animation: float-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.float-in-delay-1 {
+  animation: float-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  opacity: 0;
+}
+
+.float-in-delay-2 {
+  animation: float-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  opacity: 0;
+}
+
+.float-in-delay-3 {
+  animation: float-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  opacity: 0;
+}
+
+.float-in-delay-4 {
+  animation: float-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.slide-in {
+  animation: slide-in-left 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Blinking indicators */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+.blink {
+  animation: blink 0.9s ease-in-out infinite;
+}
+
+/* Horn flash */
+@keyframes horn-flash {
+  0% { background-color: rgba(255, 200, 50, 0.95); color: #000; }
+  100% { background-color: rgba(255, 149, 0, 0.4); color: #fff; }
+}
+
+.horn-active {
+  animation: horn-flash 0.12s ease-in-out infinite alternate;
+}
+
+/* Speedometer needle */
+@keyframes needle-pulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(255, 149, 0, 0.6)); }
+  50% { filter: drop-shadow(0 0 8px rgba(255, 149, 0, 1)); }
+}
+
+/* Controls hint fade */
+@keyframes fade-out {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+.controls-hint {
+  animation: fade-out 6s ease-out forwards;
+}
+
+/* Success celebration */
+@keyframes celebrate {
+  0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.1) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.celebrate {
+  animation: celebrate 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Game canvas wrapper */
+.game-canvas-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ===== Premium Start Screen Effects ===== */
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+  background: linear-gradient(
+    135deg,
+    #0a0a1a 0%,
+    #1a0a2e 25%,
+    #2d0a3e 50%,
+    #1a0a2e 75%,
+    #0a0a1a 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Floating particles */
+@keyframes float-particle {
+  0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
+  10% { opacity: 0.8; }
+  50% { transform: translateY(50vh) translateX(30px) scale(1); opacity: 0.5; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-20vh) translateX(-20px) scale(0.8); opacity: 0; }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-particle linear infinite;
+}
+
+/* Glowing orb */
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orb-pulse 6s ease-in-out infinite;
+}
+
+/* Shimmer text effect */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #FF9933 0%,
+    #FFD700 25%,
+    #FFFFFF 50%,
+    #138808 75%,
+    #FF9933 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Neon glow text */
+@keyframes neon-pulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(255,149,0,0.8), 0 0 20px rgba(255,149,0,0.5), 0 0 40px rgba(255,149,0,0.3); }
+  50% { text-shadow: 0 0 20px rgba(255,149,0,1), 0 0 40px rgba(255,149,0,0.7), 0 0 80px rgba(255,149,0,0.5); }
+}
+
+.neon-text {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 149, 0, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Hover lift effect */
+@keyframes hover-lift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(255, 149, 0, 0.2);
+}
+
+/* Rotating ring */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Bouncing bus */
+@keyframes bus-bounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+.bus-bounce {
+  animation: bus-bounce 3s ease-in-out infinite;
+}
+
+/* Fade in with scale */
+@keyframes scale-in {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.scale-in {
+  animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Button shine sweep */
+@keyframes shine-sweep {
+  0% { transform: translateX(-100%) skewX(-20deg); }
+  100% { transform: translateX(200%) skewX(-20deg); }
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shine-sweep 3s ease-in-out infinite;
+}
+
+/* Road line animation */
+@keyframes road-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+.road-lines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 40px,
+    rgba(255, 200, 50, 0.3) 40px,
+    rgba(255, 200, 50, 0.3) 50px
+  );
+  animation: road-move 1s linear infinite;
+}
+
+/* Keycap style */
+.keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-family: 'Outfit', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  background: linear-gradient(180deg, rgba(255,149,0,0.25) 0%, rgba(255,149,0,0.1) 100%);
+  border: 1px solid rgba(255, 149, 0, 0.4);
+  border-bottom: 3px solid rgba(255, 149, 0, 0.5);
+  color: #FF9500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Premium start button */
+@keyframes start-btn-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.5), 0 0 40px rgba(255, 149, 0, 0.3), 0 0 60px rgba(255, 184, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 107, 0, 0.8), 0 0 80px rgba(255, 149, 0, 0.5), 0 0 120px rgba(255, 184, 0, 0.3);
+  }
+}
+
+.start-btn {
+  animation: start-btn-glow 2s ease-in-out infinite;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+}
+
+.start-btn:active {
+  transform: scale(0.95);
+}
+
+/* Stat card */
+.stat-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 149, 0, 0.15);
+  border-radius: 12px;
+  padding: 12px 20px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: rgba(255, 149, 0, 0.08);
+  border-color: rgba(255, 149, 0, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 149, 0, 0.15);
+}
+
+/* Divider with gradient */
+.gradient-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 149, 0, 0.5), transparent);
+  border-radius: 2px;
+}
+
+/* Scrollbar styling for music player */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 149, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 149, 0, 0.5);
+}
